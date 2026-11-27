@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AETHRA MUSIC Dashboard</title><link rel="stylesheet" href="/style.css"></head>
+<body><main class="shell"><header><div class="logo">A</div><div><p class="eyebrow">AETHRASMP PRESENTS</p><h1>AETHRA <span>MUSIC</span></h1></div><span class="pill">CONTROL CENTER</span></header>
+<section class="login panel" id="login"><h2>Dashboard Access</h2><p>Masukkan password dashboard dari file .env.</p><input id="password" type="password" placeholder="Dashboard password"><button id="connect">Connect</button><p id="loginError" class="error"></p></section>
+<section id="app" hidden><div class="toolbar"><label>Discord server<select id="guild"></select></label><button class="ghost" id="refresh">Refresh</button></div>
+<div class="grid"><article class="panel now"><p class="eyebrow">NOW PLAYING</p><h2 id="title">Belum ada lagu</h2><p id="artist">—</p><div class="controls"><button data-action="pause">Pause</button><button data-action="resume">Resume</button><button data-action="skip">Skip</button><button data-action="stop" class="danger">Stop</button></div></article>
+<article class="panel"><p class="eyebrow">ADD MUSIC</p><input id="query" placeholder="Judul lagu atau URL YouTube/SoundCloud"><button id="play">Add to queue</button><p id="message"></p></article>
+<article class="panel"><p class="eyebrow">PLAYBACK SETTINGS</p><label class="toggle"><input id="autoplay" type="checkbox"> Autoplay</label><label class="toggle"><input id="stay247" type="checkbox"> Stay 24/7</label><p class="muted">24/7 membutuhkan VPS dan koneksi Discord yang aktif.</p></article>
+<article class="panel"><p class="eyebrow">UP NEXT <b id="count">0</b></p><ol id="queue"></ol></article></div></section>
+<footer>AETHRA MUSIC · Self-hosted Discord music system</footer></main><script src="/app.js"></script></body></html>

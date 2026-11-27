@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: aethra-music
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile.render
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: DISCORD_TOKEN
+        sync: false
+      - key: CLIENT_ID
+        sync: false
+      - key: LAVALINK_PASSWORD
+        generateValue: true
+      - key: DASHBOARD_PASSWORD
+        generateValue: true
+      - key: DASHBOARD_PORT
+        value: "10000"
+      - key: LAVALINK_HOST
+        value: "127.0.0.1"
+      - key: LAVALINK_PORT
+        value: "2333"
+      - key: LAVALINK_SECURE
+        value: "false"
+      - key: QUEUE_MAX
+        value: "0"

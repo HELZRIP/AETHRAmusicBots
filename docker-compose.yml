@@ -1,0 +1,29 @@
+services:
+  lavalink:
+    image: ghcr.io/lavalink-devs/lavalink:4
+    container_name: aethra-lavalink
+    restart: unless-stopped
+    environment:
+      _JAVA_OPTIONS: "-Xmx1G"
+    volumes:
+      - ./lavalink/application.yml:/opt/Lavalink/application.yml:ro
+      - ./lavalink/plugins:/opt/Lavalink/plugins
+    # Not exposed publicly; bot connects over Docker network.
+    expose:
+      - "2333"
+    networks: [aethra]
+  bot:
+    build: .
+    container_name: aethra-music
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - lavalink
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./data:/app/data
+    networks: [aethra]
+networks:
+  aethra:
+    driver: bridge

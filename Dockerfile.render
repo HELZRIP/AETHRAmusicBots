@@ -1,0 +1,24 @@
+# One Render Free web service runs both Lavalink and the Discord bot.
+# This keeps the deployment within one free instance-hour allocation.
+FROM ghcr.io/lavalink-devs/lavalink:4 AS lavalink
+
+FROM node:24-bookworm-slim
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends openjdk-17-jre-headless curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+COPY --from=lavalink /opt/Lavalink/Lavalink.jar /opt/Lavalink/Lavalink.jar
+COPY package.json ./
+RUN npm install --omit=dev
+COPY . .
+COPY lavalink/application-render.yml /opt/Lavalink/application.yml
+RUN chmod +x ./start-render.sh
+
+ENV NODE_OPTIONS=--max-old-space-size=128 \
+    DASHBOARD_PORT=10000 \
+    LAVALINK_HOST=127.0.0.1 \
+    LAVALINK_PORT=2333 \
+    LAVALINK_SECURE=false
+EXPOSE 10000
+CMD ["./start-render.sh"]
